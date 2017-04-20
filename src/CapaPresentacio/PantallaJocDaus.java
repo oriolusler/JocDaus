@@ -8,6 +8,8 @@ import CapaAplicacio.ControladorJocDaus;
 
 public class PantallaJocDaus extends javax.swing.JFrame {
 
+	//prova
+	
     private ControladorJocDaus controladorJocDaus;
     private javax.swing.JTextField dau1;
     private javax.swing.JTextField dau2;
