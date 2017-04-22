@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JOptionPane;
 
 import CapaAplicacio.ControladorJocDaus;
+import CapaAplicacio.LoginControler;
 
 public class PantallaJocDaus extends javax.swing.JFrame {
 
@@ -31,6 +32,8 @@ public class PantallaJocDaus extends javax.swing.JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					new LoginControler().Login();
+					
 					PantallaJocDaus frame = new PantallaJocDaus();
 					frame.setVisible(true);
 				} catch (Exception e) {

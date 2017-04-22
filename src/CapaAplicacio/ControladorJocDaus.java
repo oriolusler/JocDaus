@@ -2,6 +2,7 @@ package CapaAplicacio;
 
 import CapaDomini.Dau;
 import CapaDomini.Jugador;
+import CapaPersistencia.JugadorBBDD;
 
 public class ControladorJocDaus {
 
@@ -39,10 +40,12 @@ public class ControladorJocDaus {
     }
 
     public void nouJugador(String nom) throws Exception {
-        //Si el nom és "Anonim" no cal fer res
+        //Si el nom ï¿½s "Anonim" no cal fer res
         if (!nom.equalsIgnoreCase("Anonim")) {          
                jugador = new Jugador(nom);            
         }
+        
+        JugadorBBDD.storeJugador(jugador);
     }
 
     public String resultatPartides() {
