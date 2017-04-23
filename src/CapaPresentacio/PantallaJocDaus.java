@@ -46,7 +46,9 @@ public class PantallaJocDaus extends javax.swing.JFrame {
     public PantallaJocDaus() {
         initComponents();
         this.controladorJocDaus = new ControladorJocDaus ();
-        textJugador.setText(controladorJocDaus.getNomJugador());      
+        textJugador.setText(controladorJocDaus.getNomJugador()); 
+        //Noms guardats a la bdd
+        System.out.print(controladorJocDaus.nomsBDD());
         int i = textJugador.getText().length();
         textJugador.setSelectionStart(0);
         textJugador.setSelectionEnd(i);        
@@ -55,6 +57,7 @@ public class PantallaJocDaus extends javax.swing.JFrame {
    
     private void initComponents() {
 
+    	
         jLabel1 = new javax.swing.JLabel();
         jLabel1.setBounds(39, 38, 88, 17);
         textJugador = new javax.swing.JTextField();

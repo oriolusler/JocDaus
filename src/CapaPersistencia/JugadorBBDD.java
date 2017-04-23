@@ -8,9 +8,9 @@ import CapaDomini.Jugador;
 
 public class JugadorBBDD {
 
-	public static Jugador getCoin(String coin_TYPE) throws Exception {
+	public static String getJugadors() throws Exception {
 		ConnectionBBDD connection = LoginBBDD.getConnection();
-
+		String llista="";
 		try {
 			String sql = "SELECT * FROM JUGADOR";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -21,11 +21,10 @@ public class JugadorBBDD {
 
 				String nom;
 				nom = rs.getString("NOM");
-				//return new Coin(value, type);
-				return new Jugador(nom);
+				
+				llista += nom + "\n";
 			}
-
-			throw new Exception("No s'ha trobat moneda!");
+			return llista;
 		} catch (SQLException e) {
 			throw new Exception("ERROR");
 		}
@@ -33,9 +32,9 @@ public class JugadorBBDD {
 	}
 
 	public static void storeJugador(Jugador jugador) throws Exception {
+		
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 
-		//String sql = "UPDATE MONEDA  SET STATE_COIN=? WHERE TYPE_COIN=?";
 		String sql = "INSERT INTO JUGADOR VALUES(?)";
 		PreparedStatement pst = connection.prepareStatement(sql);
 		

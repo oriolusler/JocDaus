@@ -42,13 +42,27 @@ public class ControladorJocDaus {
     public void nouJugador(String nom) throws Exception {
         //Si el nom �s "Anonim" no cal fer res
         if (!nom.equalsIgnoreCase("Anonim")) {          
-               jugador = new Jugador(nom);            
+               jugador = new Jugador(nom);
+               try {
+				JugadorBBDD.storeJugador(jugador);
+			} catch (Exception e) {
+				throw new Exception("Aquest jugador ja està registrat!");
+				//metode per sobre esciure jugador bdd?
+			}
         }
-        
-        JugadorBBDD.storeJugador(jugador);
     }
 
     public String resultatPartides() {
         return jugador.resultatPartides();
-    }   	
+    }
+    
+    public String nomsBDD(){
+   
+    	try {
+			return JugadorBBDD.getJugadors();
+		} catch (Exception e) {
+			return null;
+		}
+    	
+   }
 }
