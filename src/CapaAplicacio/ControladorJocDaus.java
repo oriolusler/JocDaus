@@ -1,19 +1,25 @@
 package CapaAplicacio;
 
+import java.util.ArrayList;
+import CapaAplicacio.DTO.JugadorDTO;
+import CapaAplicacio.DTO.PartidaDTO;
 import CapaDomini.Dau;
 import CapaDomini.Jugador;
+import CapaDomini.Partida;
 import CapaPersistencia.JugadorBBDD;
+import CapaPersistencia.PartidaBBDD;
 
 public class ControladorJocDaus {
 
     private Dau dau1, dau2;
     private final int CARES_DAUS = 6;
     private Jugador jugador;
+    private Partida partida;
  
     public ControladorJocDaus() {
         dau1 = new Dau(CARES_DAUS);
         dau2 = new Dau(CARES_DAUS);
-        jugador = new Jugador("Anonim");       
+        jugador = new Jugador("Anonim");      
     }
 
     public void jugar() {
@@ -27,12 +33,12 @@ public class ControladorJocDaus {
         return dau.valorCara();
     }
 
-    public String getNomJugador() {
-        return jugador.getNom();
+    public JugadorDTO getJugadorDTO() {
+        return new JugadorDTO(jugador);
     }
 
-    public String resultatPartidaEnCurs() {
-        return jugador.resultatPartidaEnCurs();
+    public PartidaDTO resultatPartidaEnCurs() {
+        return new PartidaDTO(jugador.getPartidaEnCurs());
     }
 
     public double guanyadesPercent() {
@@ -52,8 +58,29 @@ public class ControladorJocDaus {
         }
     }
 
-    public String resultatPartides() {
-        return jugador.resultatPartides();
+    public void novaPartida(String nom, int ti1, int ti2) throws Exception {
+        //Si el nom �s "Anonim" no cal fer res
+        if (!nom.equalsIgnoreCase("Anonim")) {          
+               jugador = new Jugador(nom);
+               partida = new Partida(ti1, ti2,PartidaBBDD.quantesPartides());
+               try {
+				PartidaBBDD.storePartida(jugador, partida);
+			} catch (Exception e) {
+				throw new Exception("No es guarda partida");
+				//metode per sobre esciure jugador bdd?
+			}
+        }
+    }
+    
+    public ArrayList<PartidaDTO> resultatPartides() {
+        ArrayList<Partida> partides=jugador.getPartides();
+        ArrayList<PartidaDTO> result=new ArrayList<>();
+        
+        for(Partida p:partides){
+        	result.add(new PartidaDTO(p));
+        }
+        
+        return result;
     }
     
     public String nomsBDD(){
