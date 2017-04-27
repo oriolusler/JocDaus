@@ -19,7 +19,8 @@ public class Partida {
 
 		dau1 = d1;
 		dau2 = d2;
-		idPartida = getCounter() + idMax;
+		counter = idMax;
+		idPartida = getCounter();
 	}
 
 	public int getCounter() {

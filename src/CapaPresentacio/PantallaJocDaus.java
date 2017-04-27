@@ -1,8 +1,14 @@
 package CapaPresentacio;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import CapaAplicacio.ControladorJocDaus;
@@ -11,8 +17,6 @@ import CapaAplicacio.DTO.PartidaDTO;
 
 @SuppressWarnings("serial")
 public class PantallaJocDaus extends javax.swing.JFrame {
-
-	// prova
 
 	private ControladorJocDaus controladorJocDaus;
 	private javax.swing.JTextField dau1;
@@ -47,10 +51,11 @@ public class PantallaJocDaus extends javax.swing.JFrame {
 	}
 
 	public PantallaJocDaus() {
+
 		initComponents();
 		this.controladorJocDaus = new ControladorJocDaus();
-		// textJugador.setText(controladorJocDaus.getNomJugador());
-		textJugador.setText(controladorJocDaus.getJugadorDTO().getNom());
+		//textJugador.setText(controladorJocDaus.getJugadorDTO().getNom());
+		textJugador.setText(textJugador.getText());
 		int i = textJugador.getText().length();
 		textJugador.setSelectionStart(0);
 		textJugador.setSelectionEnd(i);
@@ -196,12 +201,11 @@ public class PantallaJocDaus extends javax.swing.JFrame {
 		String s = String
 				.format("%3.2f", controladorJocDaus.guanyadesPercent());
 		guanyades.setText(s);
-		
+
 		try {
 			controladorJocDaus.novaPartida(textJugador.getText(),
 					Integer.valueOf(dau1.getText()),
 					Integer.valueOf(dau2.getText()));
-			System.out.print("HOLA");
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(),
 					"Error lectura BBDD", JOptionPane.ERROR_MESSAGE);
@@ -221,8 +225,13 @@ public class PantallaJocDaus extends javax.swing.JFrame {
 	}
 
 	private void llistaJugadesActionPerformed(java.awt.event.ActionEvent evt) {
-		ArrayList<PartidaDTO> jugades;
-		jugades = controladorJocDaus.resultatPartides();
+		ArrayList<PartidaDTO> jugades = new ArrayList<>();
+		try {
+			jugades = controladorJocDaus.resultatPartides();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(),
+					"Error obtenció llistat partides", JOptionPane.ERROR_MESSAGE);
+		}
 
 		String a = "";
 		for (PartidaDTO p : jugades) {
