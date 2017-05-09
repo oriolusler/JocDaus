@@ -9,6 +9,7 @@ import CapaDomini.Partida;
 public class JugadorDTO {
 
 	private String nom;
+	
 	public String getNom() {
 		return nom;
 	}
@@ -16,8 +17,7 @@ public class JugadorDTO {
 	public ArrayList<PartidaDTO> getPartides() {
 		return partides;
 	}
-
-	// private Partida darreraPartida;
+	
 	private ArrayList<PartidaDTO> partides = new ArrayList<>();
 
 	public JugadorDTO(Jugador jugador) {

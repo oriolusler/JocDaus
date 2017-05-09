@@ -42,6 +42,7 @@ public class ControladorJocDaus {
 	}
 
 	public double guanyadesPercent() {
+
 		return jugador.nombreGuanyades() / (float) jugador.nombrePartides()
 				* 100;
 	}
@@ -60,7 +61,6 @@ public class ControladorJocDaus {
 	public void novaPartida(String nom, int ti1, int ti2) throws Exception {
 
 		if (!nom.equalsIgnoreCase("Anonim")) {
-			jugador = new Jugador(nom);
 			partida = new Partida(ti1, ti2, PartidaBBDD.quantesPartides());
 			try {
 				PartidaBBDD.storePartida(jugador, partida);

@@ -25,7 +25,7 @@ public class PartidaDTO {
 		return "Dau1: " + dau1 + ", Dau2: " + dau2 + ", Resultat: " + resultat;
 	}
 
-	private boolean getGuanyada() {
+	public boolean getGuanyada() {
 		 return dau1 + dau2 == 7;
 	}
 

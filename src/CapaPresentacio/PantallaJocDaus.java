@@ -1,21 +1,17 @@
 package CapaPresentacio;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import CapaAplicacio.ControladorJocDaus;
 import CapaAplicacio.LoginControler;
 import CapaAplicacio.DTO.PartidaDTO;
 
-@SuppressWarnings("serial")
 public class PantallaJocDaus extends javax.swing.JFrame {
 
 	private ControladorJocDaus controladorJocDaus;
@@ -39,8 +35,36 @@ public class PantallaJocDaus extends javax.swing.JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new LoginControler().Login();
+					boolean logat = false;
+					while (!logat) {
+						JLabel label_login = new JLabel("Usuari:");
+						JTextField login = new JTextField();
 
+						JLabel label_password = new JLabel("Password:");
+						JPasswordField password = new JPasswordField();
+
+						Object[] array = { label_login, login, label_password,
+								password };
+
+						int res = JOptionPane.showConfirmDialog(null, array,
+								"Login BBDD", JOptionPane.OK_CANCEL_OPTION,
+								JOptionPane.PLAIN_MESSAGE);
+
+						if (res == JOptionPane.OK_OPTION) {
+
+							try {
+								new LoginControler().Login(login.getText()
+										.trim(),
+										new String(password.getPassword()));
+								logat = true;
+							} catch (Exception e) {
+								JOptionPane.showMessageDialog(new JFrame(),
+										"Usuari i/o contrasenya incorrecte.\nTorna a provar.");
+							}
+
+						} else
+							System.exit(0);
+					}
 					PantallaJocDaus frame = new PantallaJocDaus();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -54,14 +78,12 @@ public class PantallaJocDaus extends javax.swing.JFrame {
 
 		initComponents();
 		this.controladorJocDaus = new ControladorJocDaus();
-		//textJugador.setText(controladorJocDaus.getJugadorDTO().getNom());
 		textJugador.setText(textJugador.getText());
 		int i = textJugador.getText().length();
 		textJugador.setSelectionStart(0);
 		textJugador.setSelectionEnd(i);
 		this.setVisible(true);
-		// Noms guardats a la bdd
-		System.out.print(controladorJocDaus.nomsBDD());
+
 	}
 
 	private void initComponents() {
@@ -103,7 +125,7 @@ public class PantallaJocDaus extends javax.swing.JFrame {
 		jLabel1.setText("Nom Jugador:");
 
 		textJugador.setFont(new java.awt.Font("Tahoma", 0, 14));
-		textJugador.setText("Anònim");
+		textJugador.setText("Anonim");
 		textJugador.setName("nomJugador");
 		textJugador.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,19 +209,13 @@ public class PantallaJocDaus extends javax.swing.JFrame {
 
 	private void jugarActionPerformed(java.awt.event.ActionEvent evt) {
 		PartidaDTO partida;
-		try {
-			controladorJocDaus.jugar();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(),
-					"Error en l'execució", JOptionPane.ERROR_MESSAGE);
-		}
-		// jugada = controladorJocDaus.resultatPartidaEnCurs();
+		controladorJocDaus.jugar();
 		partida = controladorJocDaus.resultatPartidaEnCurs();
 		dau1.setText(partida.getDau1());
 		dau2.setText(partida.getDau2());
 		resultat.setText(partida.getResult());
-		String s = String
-				.format("%3.2f", controladorJocDaus.guanyadesPercent());
+		String s;
+		s = String.format("%3.2f", controladorJocDaus.guanyadesPercent());
 		guanyades.setText(s);
 
 		try {
@@ -230,7 +246,8 @@ public class PantallaJocDaus extends javax.swing.JFrame {
 			jugades = controladorJocDaus.resultatPartides();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(),
-					"Error obtenció llistat partides", JOptionPane.ERROR_MESSAGE);
+					"Error obtenció llistat partides",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 		String a = "";

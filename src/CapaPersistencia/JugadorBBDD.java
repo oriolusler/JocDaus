@@ -12,17 +12,19 @@ public class JugadorBBDD {
 		ConnectionBBDD connection = LoginBBDD.getConnection();
 		String llista="";
 		try {
-			String sql = "SELECT * FROM JUGADOR";
+			//String sql = "SELECT * FROM JUGADOR";
+			String sql = "SELECT * FROM SUDOKU";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.clearParameters();
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
 
-				String nom;
-				nom = rs.getString("NOM");
+				//String nom;
+				//nom = rs.getString("NOM");
 				
-				llista += nom + "\n";
+				int x = rs.getInt("X");
+				llista += x + "\n";
 			}
 			return llista;
 		} catch (SQLException e) {
