@@ -31,49 +31,6 @@ public class PantallaJocDaus extends javax.swing.JFrame {
 	private javax.swing.JTextField resultat;
 	private javax.swing.JTextField textJugador;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					boolean logat = false;
-					while (!logat) {
-						JLabel label_login = new JLabel("Usuari:");
-						JTextField login = new JTextField();
-
-						JLabel label_password = new JLabel("Password:");
-						JPasswordField password = new JPasswordField();
-
-						Object[] array = { label_login, login, label_password,
-								password };
-
-						int res = JOptionPane.showConfirmDialog(null, array,
-								"Login BBDD", JOptionPane.OK_CANCEL_OPTION,
-								JOptionPane.PLAIN_MESSAGE);
-
-						if (res == JOptionPane.OK_OPTION) {
-
-							try {
-								new LoginControler().Login(login.getText()
-										.trim(),
-										new String(password.getPassword()));
-								logat = true;
-							} catch (Exception e) {
-								JOptionPane.showMessageDialog(new JFrame(),
-										"Usuari i/o contrasenya incorrecte.\nTorna a provar.");
-							}
-
-						} else
-							System.exit(0);
-					}
-					PantallaJocDaus frame = new PantallaJocDaus();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public PantallaJocDaus() {
 
 		initComponents();
@@ -231,7 +188,10 @@ public class PantallaJocDaus extends javax.swing.JFrame {
 	private void nomJugadorActionPerformed(java.awt.event.ActionEvent evt) {
 		try {
 			textJugador.setEnabled(false);
-			controladorJocDaus.nouJugador(textJugador.getText());
+			double percentatge = controladorJocDaus.nouJugador(textJugador
+					.getText());
+			if (percentatge != -1)
+				guanyades.setText(String.format("%3.2f", percentatge));
 			jugar.setEnabled(true);
 			llistaJugades.setEnabled(true);
 		} catch (Exception ex) {

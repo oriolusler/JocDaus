@@ -47,15 +47,26 @@ public class ControladorJocDaus {
 				* 100;
 	}
 
-	public void nouJugador(String nom) throws Exception {
+	public double nouJugador(String nom) throws Exception {
+		double resultat = -1;
 		if (!nom.equalsIgnoreCase("Anonim")) {
 			jugador = new Jugador(nom);
 			try {
 				JugadorBBDD.storeJugador(jugador);
+				return resultat;
 			} catch (Exception e) {
-				throw new Exception("Aquest jugador ja està registrat!");
+
+				ArrayList<Partida> partides = new ArrayList<>();
+				partides = PartidaBBDD.llistatPArtidesBDD(jugador);
+				for (Partida p : partides) {
+					jugador.addPartida(p.getDau1(), p.getDau2());
+				}
+
+				return guanyadesPercent();
 			}
 		}
+		return resultat;
+
 	}
 
 	public void novaPartida(String nom, int ti1, int ti2) throws Exception {
