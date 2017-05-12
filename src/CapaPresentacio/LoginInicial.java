@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 
 import CapaAplicacio.LoginControler;
 
-public class LoginBBDD {
+public class LoginInicial {
 
 	public static void main(String[] args) {
 		boolean logat = false;

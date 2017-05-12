@@ -1,15 +1,8 @@
 package CapaPresentacio;
 
-import java.awt.EventQueue;
 import java.util.ArrayList;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import CapaAplicacio.ControladorJocDaus;
-import CapaAplicacio.LoginControler;
 import CapaAplicacio.DTO.PartidaDTO;
 
 public class PantallaJocDaus extends javax.swing.JFrame {
