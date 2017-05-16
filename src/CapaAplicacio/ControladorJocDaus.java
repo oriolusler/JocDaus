@@ -108,13 +108,5 @@ public class ControladorJocDaus {
 		}
 	}
 
-	public String nomsBDD() {
-
-		try {
-			return JugadorBBDD.getJugadors();
-		} catch (Exception e) {
-			return null;
-		}
-
-	}
+	
 }

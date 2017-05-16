@@ -8,30 +8,6 @@ import CapaDomini.Jugador;
 
 public class JugadorBBDD {
 
-	public static String getJugadors() throws Exception {
-		ConnectionBBDD connection = LoginBBDD.getConnection();
-		String llista="";
-		try {
-			//String sql = "SELECT * FROM JUGADOR";
-			String sql = "SELECT * FROM SUDOKU";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.clearParameters();
-			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-
-				//String nom;
-				//nom = rs.getString("NOM");
-				
-				int x = rs.getInt("X");
-				llista += x + "\n";
-			}
-			return llista;
-		} catch (SQLException e) {
-			throw new Exception("ERROR");
-		}
-
-	}
 
 	public static void storeJugador(Jugador jugador) throws Exception {
 		
